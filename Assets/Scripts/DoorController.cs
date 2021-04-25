@@ -18,6 +18,7 @@ public class DoorController : MonoBehaviour
     private float speed = 5f;
 
     private bool playerIsHere = false;
+    private int numEntitiesInside = 0;
 
     private float posClosedY;
     private float negClosedY;
@@ -58,15 +59,26 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider col) {
-        if (col.gameObject.tag == "Player") {
+    private void UpdatePlayerIsHere() {
+        if (numEntitiesInside > 0) {
             playerIsHere = true;
+        } else {
+            playerIsHere = false;
         }
     }
 
-    private void OnTriggerExit(Collider col) {
-        if (col.gameObject.tag == "Player") {
-            playerIsHere = false;
+    private void OnTriggerEnter(Collider col) {
+        Debug.Log(col.gameObject);
+        if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
+            numEntitiesInside += 1;
         }
+        UpdatePlayerIsHere();
+    }
+
+    private void OnTriggerExit(Collider col) {
+        if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
+            numEntitiesInside -= 1;
+        }
+        UpdatePlayerIsHere();
     }
 }
