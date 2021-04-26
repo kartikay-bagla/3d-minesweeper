@@ -48,3 +48,4 @@ MonoBehaviour:
   sizeX: 5
   sizeZ: 5
   increment: 20
+  difficulty: 0.2

@@ -7,6 +7,7 @@ public class MazeGenerator : MonoBehaviour
     public GameObject roomPrefab;
     public int sizeX, sizeZ;
     public int increment = 2;
+    public float difficulty=0.1f;
     private GameObject[,] rooms;
     void Start()
     {
@@ -24,6 +25,9 @@ public class MazeGenerator : MonoBehaviour
 
 	private void CreateRoom (int x, int z) {
 		GameObject newRoom = Instantiate(roomPrefab, new Vector3(x*increment, 0, z*increment), Quaternion.identity) as GameObject;
+        newRoom.transform.parent = transform;
+        if (Random.Range(0f,1f)<difficulty)
+            newRoom.tag = "Trap";
 		rooms[x, z] = newRoom;
 		newRoom.name = "Room " + x + ", " + z;
 	}
