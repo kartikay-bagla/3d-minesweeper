@@ -5,6 +5,12 @@
 public class PlayerController : MonoBehaviour
 {
 
+    [Header("Basic")]
+    [SerializeField]
+    int maxHealth = 100;
+    int currentHealth;
+
+    [Header("Flight")]
     [SerializeField]
     private float speed = 5f;
 
@@ -26,16 +32,7 @@ public class PlayerController : MonoBehaviour
     private PlayerMotor motor;
     private ConfigurableJoint joint;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        motor = GetComponent<PlayerMotor>();
-        joint = GetComponent<ConfigurableJoint>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+    private void Movement() {
         // Movement
         float _xMov = Input.GetAxisRaw("Horizontal");
         float _zMov = Input.GetAxisRaw("Vertical");
@@ -70,7 +67,31 @@ public class PlayerController : MonoBehaviour
         }
 
         motor.ApplyThruster(_thrusterForce);
+    }
 
+    
+    public void TakeDamage(int damage) {
+        // currentHealth -= damage;
+        // Debug.Log(currentHealth);
+    }
+    
+    // Start is called before the first frame update
+    void Start()
+    {
+        motor = GetComponent<PlayerMotor>();
+        joint = GetComponent<ConfigurableJoint>();
+
+        currentHealth = maxHealth;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        Movement();
+
+        if (currentHealth <= 0) {
+            Destroy(gameObject);
+        }
     }
 
     private void SetJointSettings (float _jointSpring) {

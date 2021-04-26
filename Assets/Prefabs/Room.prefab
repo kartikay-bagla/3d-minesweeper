@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6821704159176676123}
   - component: {fileID: 8393025167667793983}
   - component: {fileID: 9157935233470074464}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Roof
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2037890914518899684}
   - component: {fileID: 1341103554866413756}
   - component: {fileID: 4508210952374614004}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 257863640837103983}
   - component: {fileID: 8779096576674842139}
   - component: {fileID: 456798440083265726}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PosDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 5176238095650068919}
   - component: {fileID: 8888852663091969798}
   - component: {fileID: 6781760302507321472}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 6026365661813215766}
   - component: {fileID: 8378108084944234204}
   - component: {fileID: 1818328774994485029}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall With Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - component: {fileID: 8446837800219027492}
   - component: {fileID: 1937306241118765415}
   - component: {fileID: 3394678127287920778}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: NegDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

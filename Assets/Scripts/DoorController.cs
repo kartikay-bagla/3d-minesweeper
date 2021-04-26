@@ -68,7 +68,6 @@ public class DoorController : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider col) {
-        Debug.Log(col.gameObject);
         if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
             numEntitiesInside += 1;
         }
