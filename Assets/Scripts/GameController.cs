@@ -21,28 +21,71 @@ public class GameController : MonoBehaviour
     //     NavMeshSurface[] navMeshSurfaces = gameObject.GetComponentsInChildren<NavMeshSurface>(true);
 
     //     Debug.Log("We have " + navMeshSurfaces.Length as string + " surfaces");
-        
+
     //     foreach (NavMeshSurface navMeshSurface in navMeshSurfaces)
     //     {
     //         navMeshSurface.BuildNavMesh();
     //     }
     // }
 
-    void BuildNavMesh() {
-        // NavMeshSurface navMeshSurface;
-
-        foreach (Transform child in transform) {
-            Debug.Log(child.name);
+    void BuildNavMesh()
+    {
+        foreach (Transform child in rooms[gridSize - 1, gridSize - 1].transform)
+        {
+            if (child.name == "Ground")
+            {
+                child.GetComponent<NavMeshSurface>().BuildNavMesh();
+            }
         }
-        
-        // navMeshSurface.BuildNavMesh();
+
+        foreach (GameObject room in rooms)
+        {
+            foreach (DoorController door in room.GetComponentsInChildren<DoorController>())
+                {
+                    if (door != null) door.SetClosed();
+                }
+        }
+
+
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+            {
+
+                room = rooms[i, j];
+
+                selectedEnemies.Clear();
+                for (int z = 0; z < UnityEngine.Random.Range(0, 6); z++)
+                {
+                    GameObject temp = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
+                    selectedEnemies.Add(temp);
+                }
+
+                // Debug.Log("Spawning " + selectedEnemies.Count as string + " enemies");
+
+                RoomController roomController = room.GetComponent<RoomController>();
+
+                if (roomController != null)
+                {
+                    roomController.AssignEnemies(selectedEnemies);
+                }
+                else
+                {
+                    Debug.Log("Room Controller is Null");
+                }
+
+
+            }
+        }
+
+        Instantiate(player, new Vector3(20, 1, 0), Quaternion.identity);
     }
 
     void Start()
     {
 
         rooms = new GameObject[gridSize, gridSize];
-        selectedEnemies = new List<GameObject> ();
+        selectedEnemies = new List<GameObject>();
 
         int _startX = 0;
         int _startZ = 0;
@@ -59,42 +102,9 @@ public class GameController : MonoBehaviour
             _startZ += increment;
         }
 
-        foreach (Transform child in rooms[gridSize -1, gridSize -1].transform) {
-            if (child.name == "Ground") {
-                child.GetComponent<NavMeshSurface>().BuildNavMesh();
-            }
-        }
         
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-            {
 
-                room = rooms[i, j];
-
-                selectedEnemies.Clear();
-                for (int z = 0; z < UnityEngine.Random.Range(0, 6); z++) {
-                    GameObject temp = enemyPrefabs[UnityEngine.Random.Range(0, enemyPrefabs.Length)];
-                    selectedEnemies.Add(temp);
-                }
-
-                // Debug.Log("Spawning " + selectedEnemies.Count as string + " enemies");
-
-                RoomController roomController = room.GetComponent<RoomController>();
-
-                if (roomController != null) {
-                    roomController.AssignEnemies(selectedEnemies);
-                } else {
-                    Debug.Log("Room Controller is Null");
-                }
-
-                
-            }
-        }
-
-        Instantiate(player, new Vector3(20, 1, 0), Quaternion.identity);
-
-        // Invoke("BuildNavMesh", 1f);
+        Invoke("BuildNavMesh", 1f);
 
     }
 }

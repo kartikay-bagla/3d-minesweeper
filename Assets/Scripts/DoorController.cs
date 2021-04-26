@@ -36,6 +36,28 @@ public class DoorController : MonoBehaviour
 
         posOpenY = posClosedY - moveDistance;
         negOpenY = negClosedY + moveDistance;
+
+        SetOpen();
+    }
+
+    public void SetOpen() {
+        Vector3 posOrigLoc = posDoor.transform.localPosition;
+        posDoor.transform.localPosition = new Vector3(posOrigLoc.x, posOpenY, posOrigLoc.z);
+
+        Vector3 negOrigLoc = negDoor.transform.localPosition;
+        negDoor.transform.localPosition = new Vector3(negOrigLoc.x, negOpenY, negOrigLoc.z);
+
+        openDoor = true;
+    }
+
+    public void SetClosed() {
+        Vector3 posOrigLoc = posDoor.transform.localPosition;
+        posDoor.transform.localPosition = new Vector3(posOrigLoc.x, posClosedY, posOrigLoc.z);
+
+        Vector3 negOrigLoc = negDoor.transform.localPosition;
+        negDoor.transform.localPosition = new Vector3(negOrigLoc.x, negClosedY, negOrigLoc.z);
+
+        openDoor = false;
     }
 
     void FixedUpdate()
