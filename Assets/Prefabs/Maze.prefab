@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40281ce9eec92045898ceeaf35ebc9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPrefab: {fileID: 8291696401317831758, guid: 2aa25296a15702c41aa7d6288389ac7b,
+  roomPrefab: {fileID: 6263399231593369873, guid: b9070077492edcf47a02539524195553,
     type: 3}
   sizeX: 5
   sizeZ: 5
