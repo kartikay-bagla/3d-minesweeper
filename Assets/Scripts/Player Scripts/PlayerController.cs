@@ -71,8 +71,8 @@ public class PlayerController : MonoBehaviour
 
     
     public void TakeDamage(int damage) {
-        // currentHealth -= damage;
-        // Debug.Log(currentHealth);
+        currentHealth -= damage;
+        Debug.Log(currentHealth);
     }
     
     // Start is called before the first frame update

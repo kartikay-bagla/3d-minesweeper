@@ -3,12 +3,9 @@ using UnityEngine.AI;
 
 public class AIController : MonoBehaviour
 {
+    GameObject goal;
 
-
-    [SerializeField]
-    private Transform goal;
-
-    private NavMeshAgent playerAgent;
+    NavMeshAgent playerAgent;
 
     [SerializeField]
     int maxHealth = 100;
@@ -44,17 +41,24 @@ public class AIController : MonoBehaviour
         //     else call damageplayer after enough time has passed
         //   else set playercontrollertodamage to null
 
-        if (isPlayerinDamageRadius) {
-            if (Time.time > lastDamageTime + damageTime) {
-                if (playerControllerToDamage != null) {
+        if (isPlayerinDamageRadius)
+        {
+            if (Time.time > lastDamageTime + damageTime)
+            {
+                if (playerControllerToDamage != null)
+                {
                     playerControllerToDamage.TakeDamage(enemyDamage);
                     Invoke("DamagePlayer", damageTime);
                     lastDamageTime = Time.time;
                 }
-            } else {
+            }
+            else
+            {
                 Invoke("DamagePlayer", lastDamageTime + damageTime - Time.time);
             }
-        } else {
+        }
+        else
+        {
             playerControllerToDamage = null;
         }
     }
@@ -69,6 +73,13 @@ public class AIController : MonoBehaviour
         }
     }
 
+    void OnTriggerExit(Collider collider) {
+        if (collider.CompareTag("Player"))
+        {
+            isPlayerinDamageRadius = false;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -78,15 +89,27 @@ public class AIController : MonoBehaviour
         isPlayerinDamageRadius = false;
 
         lastDamageTime = Time.time;
+
+        goal = GameObject.Find("Player(Clone)");
+
     }
 
     void Update()
     {
 
+        // Debug.Log("CanMoveEnemyUpdate: " + canEnemyMoveRandomShit as string);
 
-        if (goal != null)
+        // // Activate();
+
+        // Debug.Log("CanMoveEnemyUpdateAfter: " + canMove as string);
+
+        if (goal == null)
         {
-            playerAgent.destination = goal.position;
+            goal = GameObject.FindGameObjectWithTag("Player");
+        }
+        else
+        {
+            playerAgent.destination = goal.transform.position;
         }
 
 

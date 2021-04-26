@@ -20,11 +20,15 @@ public class BulletScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider) {
+
+        // Debug.Log(collider.gameObject.name);
+
         if(collider.CompareTag("Character")) {
-            Debug.Log(collider.name);
+            // Debug.Log(collider.name);
             collider.GetComponent<AIController>().TakeDamage(bulletDamage);
             Invoke("Die", 0.05f);
         }
+        collisions += 1;
     }
 
     // Start is called before the first frame update

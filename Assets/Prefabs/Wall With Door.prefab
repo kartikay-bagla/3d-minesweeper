@@ -207,6 +207,7 @@ MonoBehaviour:
   negDoor: {fileID: 9133949560357564634}
   moveDistance: 0.005
   speed: 5
+  roomController: {fileID: 0}
 --- !u!1 &8018088052754892553
 GameObject:
   m_ObjectHideFlags: 0

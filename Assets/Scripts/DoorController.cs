@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject posDoor;
 
@@ -17,7 +16,10 @@ public class DoorController : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
 
-    private bool playerIsHere = false;
+    [SerializeField]
+    private RoomController roomController;
+
+    private bool openDoor = false;
     private int numEntitiesInside = 0;
 
     private float posClosedY;
@@ -38,7 +40,7 @@ public class DoorController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (playerIsHere) {
+        if (openDoor) {
             // move doors until open
             if (Mathf.Approximately(posDoor.transform.localPosition.y, posOpenY) || posDoor.transform.localPosition.y >= posOpenY) {
                 posDoor.transform.Translate(0f, 0f, speed * Time.fixedDeltaTime);
@@ -59,11 +61,11 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    private void UpdatePlayerIsHere() {
+    private void UpdateOpenDoor() {
         if (numEntitiesInside > 0) {
-            playerIsHere = true;
+            openDoor = true;
         } else {
-            playerIsHere = false;
+            openDoor = false;
         }
     }
 
@@ -71,13 +73,15 @@ public class DoorController : MonoBehaviour
         if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
             numEntitiesInside += 1;
         }
-        UpdatePlayerIsHere();
+        UpdateOpenDoor();
+        roomController.EntityEnteredDoorSensor(col);
     }
 
     private void OnTriggerExit(Collider col) {
         if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
             numEntitiesInside -= 1;
         }
-        UpdatePlayerIsHere();
+        UpdateOpenDoor();
+        roomController.EntityLeftDoorSensor(col);
     }
 }
