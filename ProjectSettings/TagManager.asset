@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Fire
+  - Trap
   - Character
   - Enemy
   - Bullet
@@ -16,6 +17,7 @@ TagManager:
   - Water
   - UI
   - 
+  - Minimap
   - Bullet
   - Player
   - Enemies
