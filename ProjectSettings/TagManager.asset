@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Fire
   - Trap
+  - Character
+  - Enemy
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -13,12 +16,13 @@ TagManager:
   - 
   - Water
   - UI
+  - 
   - Minimap
-  - 
+  - Bullet
   - Player
-  - 
-  - 
-  - 
+  - Enemies
+  - Environment
+  - Sensors
   - 
   - 
   - 

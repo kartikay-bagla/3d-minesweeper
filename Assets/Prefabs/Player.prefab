@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 201328290679357825}
   - component: {fileID: 201328290679357826}
   - component: {fileID: 851584927573171224}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -94,6 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f522c819c746f69438112c408e36f67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
   speed: 5
   lookSensitivity: 20
   thrusterForce: 1000
@@ -206,7 +207,7 @@ GameObject:
   - component: {fileID: 201328291144268822}
   - component: {fileID: 201328291144268819}
   - component: {fileID: 201328291144268820}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -285,7 +286,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 201328291163504348}
-  m_Layer: 0
+  - component: {fileID: 1041802201567320567}
+  m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -304,9 +306,38 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 201328291144268822}
+  - {fileID: 3195855051373044517}
   m_Father: {fileID: 201328291515362634}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1041802201567320567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201328291163504349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a9d71d00ba276a43b416f7dc807ad73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 589512559312808797, guid: 13d3d9491ae5f0b49a810df9f729d24e, type: 3}
+  shootForce: 20
+  upwardForce: 0
+  timeBetweenShooting: 0.1
+  spread: 0
+  reloadTime: 1.5
+  timeBetweenShots: 0
+  magazineSize: 100
+  bulletsPerTap: 1
+  allowButtonHold: 1
+  player: {fileID: 201328290679357824}
+  recoilForce: 0
+  fpscam: {fileID: 201328291515362632}
+  attackPoint: {fileID: 3195855051373044517}
+  muzzleFlash: {fileID: 0}
+  allowInvoke: 1
 --- !u!1 &201328291473371393
 GameObject:
   m_ObjectHideFlags: 0
@@ -318,7 +349,7 @@ GameObject:
   - component: {fileID: 201328291473371392}
   - component: {fileID: 201328291473371406}
   - component: {fileID: 201328291473371407}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PlayerModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -366,7 +397,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a7bbc19df763b2e4a9af379989b3e904, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -399,7 +430,7 @@ GameObject:
   - component: {fileID: 201328291515362634}
   - component: {fileID: 201328291515362632}
   - component: {fileID: 201328291515362633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -481,7 +512,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 201328292177998593}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}

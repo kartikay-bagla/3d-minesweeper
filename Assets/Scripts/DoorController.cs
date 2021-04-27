@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorController : MonoBehaviour
 {
-
     [SerializeField]
     private GameObject posDoor;
 
@@ -17,7 +16,11 @@ public class DoorController : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
 
-    private bool playerIsHere = false;
+    [SerializeField]
+    private RoomController roomController;
+
+    private bool openDoor = false;
+    private int numEntitiesInside = 0;
 
     private float posClosedY;
     private float negClosedY;
@@ -33,11 +36,33 @@ public class DoorController : MonoBehaviour
 
         posOpenY = posClosedY - moveDistance;
         negOpenY = negClosedY + moveDistance;
+
+        SetOpen();
+    }
+
+    public void SetOpen() {
+        Vector3 posOrigLoc = posDoor.transform.localPosition;
+        posDoor.transform.localPosition = new Vector3(posOrigLoc.x, posOpenY, posOrigLoc.z);
+
+        Vector3 negOrigLoc = negDoor.transform.localPosition;
+        negDoor.transform.localPosition = new Vector3(negOrigLoc.x, negOpenY, negOrigLoc.z);
+
+        openDoor = true;
+    }
+
+    public void SetClosed() {
+        Vector3 posOrigLoc = posDoor.transform.localPosition;
+        posDoor.transform.localPosition = new Vector3(posOrigLoc.x, posClosedY, posOrigLoc.z);
+
+        Vector3 negOrigLoc = negDoor.transform.localPosition;
+        negDoor.transform.localPosition = new Vector3(negOrigLoc.x, negClosedY, negOrigLoc.z);
+
+        openDoor = false;
     }
 
     void FixedUpdate()
     {
-        if (playerIsHere) {
+        if (openDoor) {
             // move doors until open
             if (Mathf.Approximately(posDoor.transform.localPosition.y, posOpenY) || posDoor.transform.localPosition.y >= posOpenY) {
                 posDoor.transform.Translate(0f, 0f, speed * Time.fixedDeltaTime);
@@ -58,15 +83,27 @@ public class DoorController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider col) {
-        if (col.gameObject.tag == "Player") {
-            playerIsHere = true;
+    private void UpdateOpenDoor() {
+        if (numEntitiesInside > 0) {
+            openDoor = true;
+        } else {
+            openDoor = false;
         }
     }
 
-    private void OnTriggerExit(Collider col) {
-        if (col.gameObject.tag == "Player") {
-            playerIsHere = false;
+    private void OnTriggerEnter(Collider col) {
+        if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
+            numEntitiesInside += 1;
         }
+        UpdateOpenDoor();
+        roomController.EntityEnteredDoorSensor(col);
+    }
+
+    private void OnTriggerExit(Collider col) {
+        if (col.gameObject.tag == "Character" || col.gameObject.tag == "Player") {
+            numEntitiesInside -= 1;
+        }
+        UpdateOpenDoor();
+        roomController.EntityLeftDoorSensor(col);
     }
 }

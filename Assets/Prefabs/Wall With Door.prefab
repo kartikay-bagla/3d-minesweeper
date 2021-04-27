@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 257863640837103983}
   - component: {fileID: 8779096576674842139}
   - component: {fileID: 456798440083265726}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PosDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,10 +56,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ca8903f17ef1e9e4286cb24f768d46f3, type: 2}
+  - {fileID: 2100000, guid: 5ff5d06df8f7aac43bb69cfe0cbb8d41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,6 +81,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &456798440083265726
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,7 +108,7 @@ GameObject:
   - component: {fileID: 5176238095650068919}
   - component: {fileID: 8888852663091969798}
   - component: {fileID: 6781760302507321472}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Door Sensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,6 +152,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -174,6 +177,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &8888852663091969798
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -203,6 +207,7 @@ MonoBehaviour:
   negDoor: {fileID: 9133949560357564634}
   moveDistance: 0.005
   speed: 5
+  roomController: {fileID: 0}
 --- !u!1 &8018088052754892553
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,12 +220,12 @@ GameObject:
   - component: {fileID: 6026365661813215766}
   - component: {fileID: 8378108084944234204}
   - component: {fileID: 1818328774994485029}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Wall With Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7209744268694527411
 Transform:
@@ -262,10 +267,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 238ada3d4fd7f3742ac5895e08de1b51, type: 2}
+  - {fileID: 2100000, guid: 84366283275058447b8aaacfa749f920, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -286,6 +292,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!64 &1818328774994485029
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -312,7 +319,7 @@ GameObject:
   - component: {fileID: 8446837800219027492}
   - component: {fileID: 1937306241118765415}
   - component: {fileID: 3394678127287920778}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: NegDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,10 +363,11 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b280e916066601f4880682669e3d8fc3, type: 2}
+  - {fileID: 2100000, guid: 5ff5d06df8f7aac43bb69cfe0cbb8d41, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -380,6 +388,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3394678127287920778
 BoxCollider:
   m_ObjectHideFlags: 0
