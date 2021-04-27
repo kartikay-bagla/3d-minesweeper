@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3991384100571756295}
   - component: {fileID: 3991384100571756294}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: EnemyDamageCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

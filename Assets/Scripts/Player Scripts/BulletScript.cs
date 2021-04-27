@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour
 
     public int bulletDamage;
     public float maxLifetime;
+    public int maxCollisions;
 
     int collisions;
 
@@ -20,8 +21,6 @@ public class BulletScript : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider collider) {
-
-        // Debug.Log(collider.gameObject.name);
 
         if(collider.CompareTag("Character")) {
             // Debug.Log(collider.name);
@@ -40,7 +39,7 @@ public class BulletScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (collisions > 0) Die();
+        if (collisions > maxCollisions) Die();
 
         maxLifetime -= Time.deltaTime;
         if (maxLifetime <= 0) Die();

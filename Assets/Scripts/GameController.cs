@@ -13,40 +13,43 @@ public class GameController : MonoBehaviour
     public int increment = 2;
 
     private GameObject[,] rooms;
+    private RoomController[,] roomControllers;
 
     GameObject room;
     List<GameObject> selectedEnemies;
 
-    // void BuildNavMesh() {
-    //     NavMeshSurface[] navMeshSurfaces = gameObject.GetComponentsInChildren<NavMeshSurface>(true);
+    public Camera minimapCam;
+    public GameObject Environment;
 
-    //     Debug.Log("We have " + navMeshSurfaces.Length as string + " surfaces");
+    public float difficulty=0.1f;
 
-    //     foreach (NavMeshSurface navMeshSurface in navMeshSurfaces)
-    //     {
-    //         navMeshSurface.BuildNavMesh();
-    //     }
-    // }
-
+    // Builds Navmesh for AI
     void BuildNavMesh()
     {
+        // Builds Nav Mesh
         foreach (Transform child in rooms[gridSize - 1, gridSize - 1].transform)
         {
             if (child.name == "Ground")
             {
+                Debug.Log("Building NavMesh");
                 child.GetComponent<NavMeshSurface>().BuildNavMesh();
             }
         }
 
+        // Closes Doors
+        Debug.Log("Closing Doors");
         foreach (GameObject room in rooms)
         {
             foreach (DoorController door in room.GetComponentsInChildren<DoorController>())
-                {
-                    if (door != null) door.SetClosed();
-                }
+            {
+                if (door != null) door.SetClosed();
+            }
         }
+    }
 
-
+    // Assigns enemies and traps to rooms
+    void RoomEnemyAssignment() {
+        Debug.Log("Assigning Enemies To Room");
         for (int i = 0; i < gridSize; i++)
         {
             for (int j = 0; j < gridSize; j++)
@@ -61,8 +64,6 @@ public class GameController : MonoBehaviour
                     selectedEnemies.Add(temp);
                 }
 
-                // Debug.Log("Spawning " + selectedEnemies.Count as string + " enemies");
-
                 RoomController roomController = room.GetComponent<RoomController>();
 
                 if (roomController != null)
@@ -74,19 +75,44 @@ public class GameController : MonoBehaviour
                     Debug.Log("Room Controller is Null");
                 }
 
+                if (Random.Range(0f, 1f) < difficulty)
+                {
+                    roomController.tag = "Trap";
+                    roomController.isMine = true;
+                };
+                room.name = "Room " + i + ", " + j;
+
 
             }
         }
-
-        Instantiate(player, new Vector3(20, 1, 0), Quaternion.identity);
+    }
+    
+    // Assign Value to each cell for number of traps nearby
+    private void LabelGrid()
+    {
+        for (int x = 0; x < gridSize; x++) {
+			for (int z = 0; z < gridSize; z++) {
+				if (!roomControllers[x,z].isMine)
+                {
+                    for (int dx=-1; dx<=1; dx++)
+                        for (int dz=-1; dz<=1; dz++)
+                            if (x+dx>=0 && x+dx<gridSize && z+dz>=0 && z+dz<gridSize && roomControllers[x+dx, z+dz].isMine)
+                                roomControllers[x,z].gridValue++;
+                }
+			}
+		}
     }
 
-    void Start()
-    {
+    // Spawns player
+    void SpawnPlayer() {
+        Debug.Log("Spawning Player");
 
-        rooms = new GameObject[gridSize, gridSize];
-        selectedEnemies = new List<GameObject>();
+        GameObject playerInstance = Instantiate(player, new Vector3(20, 1, 0), Quaternion.identity);
+        playerInstance.GetComponent<PlayerMotor>().minimapCam = minimapCam;
+    }
 
+    // Create rooms
+    void SpawnRooms() {
         int _startX = 0;
         int _startZ = 0;
         for (int i = 0; i < gridSize; i++)
@@ -94,17 +120,34 @@ public class GameController : MonoBehaviour
             for (int j = 0; j < gridSize; j++)
             {
                 rooms[i, j] = Instantiate(roomPrefab, new Vector3(_startX, 0, _startZ), Quaternion.identity);
+                rooms[i, j].transform.parent = Environment.transform;
 
+                roomControllers[i, j] = rooms[i, j].GetComponent<RoomController>();
                 _startX += increment;
             }
-
             _startX = 0;
             _startZ += increment;
         }
+    }
 
+    // Initializes traps, enemies and player
+    void InitializeEverything() {
+        BuildNavMesh();
+        RoomEnemyAssignment();
+        LabelGrid();
+        SpawnPlayer();
+    }
+
+    // Called to begin the game
+    void BeginGame() {
+        rooms = new GameObject[gridSize, gridSize];
+        selectedEnemies = new List<GameObject>();
         
+        Invoke("InitializeEverything", 0.01f);
+    }
 
-        Invoke("BuildNavMesh", 1f);
-
+    void Start()
+    {
+        BeginGame();
     }
 }

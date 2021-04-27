@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomController : MonoBehaviour
 {
@@ -15,6 +16,32 @@ public class RoomController : MonoBehaviour
 
     List<GameObject> roomEnemies;
     bool activated;
+
+    public bool isMine = false;
+    public int gridValue = 0;
+
+    private bool valueShown = false;
+
+    void OnTriggerEnter(Collider collider) {
+        if (collider.tag == "Player")
+            {
+                if (isMine)
+                {
+                    // Do nothing for now, but trigger traps here
+                }
+                else
+                    if (!valueShown) {
+                        DisplayValueOfRoom();
+                    }
+            }
+    }
+
+    void DisplayValueOfRoom()
+    {
+        valueShown = true;
+        Text value = GetComponentInChildren(typeof(Text)) as Text;
+        value.text = gridValue.ToString();
+    }
 
     public void EntityEnteredDoorSensor(Collider collider)
     {
@@ -33,8 +60,9 @@ public class RoomController : MonoBehaviour
         }
     }
 
-    void CreateSpawnPoints() {
-        spawnPoints = new List<Transform> ();
+    void CreateSpawnPoints()
+    {
+        spawnPoints = new List<Transform>();
 
         foreach (Transform child in transform)
         {
@@ -66,7 +94,8 @@ public class RoomController : MonoBehaviour
     {
         roomEnemies = enemies;
 
-        if (chosenSpawnLocations == null) {
+        if (chosenSpawnLocations == null)
+        {
             CreateSpawnPoints();
         }
 
@@ -76,7 +105,8 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         activated = false;
-        if (chosenSpawnLocations == null) {
+        if (chosenSpawnLocations == null)
+        {
             CreateSpawnPoints();
         }
 
@@ -89,11 +119,12 @@ public class RoomController : MonoBehaviour
         {
             if (playerInDoorSensor)
             {
-                // Debug.Log("Player in room, enemies in room: " + roomEnemies.Count as string);
+                Debug.Log("Player in room, enemies in room: " + roomEnemies.Count as string);
                 if (roomEnemies.Count > 0)
                 {
-                    
-                    for (int i = 0; i < roomEnemies.Count; i++) {
+
+                    for (int i = 0; i < roomEnemies.Count; i++)
+                    {
                         Instantiate(roomEnemies[i], chosenSpawnLocations[i].position, Quaternion.identity);
                     }
 

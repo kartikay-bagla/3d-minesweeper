@@ -96,13 +96,6 @@ public class AIController : MonoBehaviour
 
     void Update()
     {
-
-        // Debug.Log("CanMoveEnemyUpdate: " + canEnemyMoveRandomShit as string);
-
-        // // Activate();
-
-        // Debug.Log("CanMoveEnemyUpdateAfter: " + canMove as string);
-
         if (goal == null)
         {
             goal = GameObject.FindGameObjectWithTag("Player");
