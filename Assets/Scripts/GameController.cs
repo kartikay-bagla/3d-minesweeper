@@ -141,8 +141,9 @@ public class GameController : MonoBehaviour
     // Called to begin the game
     void BeginGame() {
         rooms = new GameObject[gridSize, gridSize];
+        roomControllers = new RoomController[gridSize, gridSize];
         selectedEnemies = new List<GameObject>();
-        
+        SpawnRooms();
         Invoke("InitializeEverything", 0.01f);
     }
 
