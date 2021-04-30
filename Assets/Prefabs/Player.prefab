@@ -97,8 +97,12 @@ MonoBehaviour:
   speed: 5
   lookSensitivity: 20
   thrusterForce: 1000
+  environmentMask:
+    serializedVersion: 2
+    m_Bits: 2048
   jointSpring: 20
   jointMaxForce: 40
+  groundBelowTrigger: 1
 --- !u!153 &851584927573171224
 ConfigurableJoint:
   m_ObjectHideFlags: 0

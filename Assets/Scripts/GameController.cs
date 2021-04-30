@@ -23,6 +23,8 @@ public class GameController : MonoBehaviour
 
     public float difficulty=0.1f;
 
+    public GameObject gameAreaDespawnerPrefab;
+
     // Builds Navmesh for AI
     void BuildNavMesh()
     {
@@ -143,8 +145,14 @@ public class GameController : MonoBehaviour
         rooms = new GameObject[gridSize, gridSize];
         roomControllers = new RoomController[gridSize, gridSize];
         selectedEnemies = new List<GameObject>();
+        SpawnGameAreaDespawner();
         SpawnRooms();
         Invoke("InitializeEverything", 0.01f);
+    }
+
+    private void SpawnGameAreaDespawner()
+    {
+        Instantiate(gameAreaDespawnerPrefab, Vector3.zero, Quaternion.identity);
     }
 
     void Start()

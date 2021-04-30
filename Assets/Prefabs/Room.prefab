@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 8671096815966496005}
   - component: {fileID: 3631202868451671896}
   m_Layer: 7
-  m_Name: Cube
+  m_Name: MinimapIconGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -724,6 +724,7 @@ MonoBehaviour:
   - {fileID: 1901245927194888, guid: 0eb8e03fa427c6b49a5d2036605c6817, type: 3}
   - {fileID: 3262003403058485920, guid: a9f6fcde7ea018a44a82cd06e445abb1, type: 3}
   - {fileID: 1140674809553178713, guid: da42aeed44060334c9e33d3743f911aa, type: 3}
+  - {fileID: 1409609188172367319, guid: 7c1c290acc1695f49ad17ea633ff45dc, type: 3}
   isMine: 0
   gridValue: 0
 --- !u!65 &6879607606866820421

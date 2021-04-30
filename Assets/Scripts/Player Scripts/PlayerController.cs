@@ -20,6 +20,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float thrusterForce = 1000f;
 
+    [SerializeField]
+	private LayerMask environmentMask;
+
     [Header("Spring Settings:")]
     
     [SerializeField]
@@ -28,11 +31,24 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float jointMaxForce = 40f;
 
+    public bool groundBelowTrigger = true;
 
     private PlayerMotor motor;
     private ConfigurableJoint joint;
 
     private void Movement() {
+
+
+        RaycastHit _hit;
+		if (Physics.Raycast (transform.position, Vector3.down, out _hit, 100f, environmentMask))
+		{
+			joint.targetPosition = new Vector3(0f, -_hit.point.y, 0f);
+		} else
+		{
+			joint.targetPosition = new Vector3(0f, Mathf.Infinity, 0f);
+		}
+
+
         // Movement
         float _xMov = Input.GetAxisRaw("Horizontal");
         float _zMov = Input.GetAxisRaw("Vertical");
@@ -65,6 +81,11 @@ public class PlayerController : MonoBehaviour
         } else {
             SetJointSettings(jointSpring);
         }
+
+        if (!groundBelowTrigger) {
+            SetJointSettings(0);
+            groundBelowTrigger = true;
+        } 
 
         motor.ApplyThruster(_thrusterForce);
     }
