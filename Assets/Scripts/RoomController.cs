@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class RoomController : MonoBehaviour
 {
+    public GameObject[] trapPrefabs;
 
     List<Transform> spawnPoints;
     Transform[] chosenSpawnLocations;
@@ -20,25 +21,29 @@ public class RoomController : MonoBehaviour
     public bool isMine = false;
     public int gridValue = 0;
 
-    private bool valueShown = false;
+    private bool hasEntered = false;
 
     void OnTriggerEnter(Collider collider) {
-        if (collider.tag == "Player")
-            {
-                if (isMine)
-                {
-                    // Do nothing for now, but trigger traps here
-                }
-                else
-                    if (!valueShown) {
-                        DisplayValueOfRoom();
-                    }
-            }
+        if (!hasEntered && collider.tag == "Player")
+        {
+            hasEntered = true;
+            if (isMine)
+                TriggerTrap();
+            else
+                DisplayValueOfRoom();
+        }
+    }
+
+    void TriggerTrap()
+    {
+        if (trapPrefabs.Length==0)
+            return;
+        int index = Random.Range(0, trapPrefabs.Length);
+        GameObject trap = Instantiate(trapPrefabs[index], transform);
     }
 
     void DisplayValueOfRoom()
     {
-        valueShown = true;
         Text value = GetComponentInChildren(typeof(Text)) as Text;
         value.text = gridValue.ToString();
     }
