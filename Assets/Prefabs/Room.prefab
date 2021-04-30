@@ -720,6 +720,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42dc7eeb89fa1fd499dc75dbb2374553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trapPrefabs:
+  - {fileID: 1901245927194888, guid: 0eb8e03fa427c6b49a5d2036605c6817, type: 3}
+  - {fileID: 3262003403058485920, guid: a9f6fcde7ea018a44a82cd06e445abb1, type: 3}
+  - {fileID: 1140674809553178713, guid: da42aeed44060334c9e33d3743f911aa, type: 3}
   isMine: 0
   gridValue: 0
 --- !u!65 &6879607606866820421
