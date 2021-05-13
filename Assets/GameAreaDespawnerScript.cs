@@ -8,7 +8,7 @@ public class GameAreaDespawnerScript : MonoBehaviour
     public int floorDamage = 100000;
 
     void OnTriggerExit(Collider col) {
-        if (col.name == "Player") {
+        if (col.tag == "Player") {
             col.GetComponent<PlayerController>().TakeDamage(floorDamage);
         } else {
             Destroy(col.gameObject);

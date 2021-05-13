@@ -136,6 +136,8 @@ MonoBehaviour:
   maxHealth: 100
   enemyDamage: 10
   damageTime: 1
+  scoreScript: {fileID: 8603542893139118877, guid: 6cf648bea860e7348b877ddd33951c0c,
+    type: 3}
 --- !u!54 &3991384100413393632
 Rigidbody:
   m_ObjectHideFlags: 0

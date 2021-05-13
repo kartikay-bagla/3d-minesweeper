@@ -22,7 +22,7 @@ public class ProjectileShooter : MonoBehaviour
     {
         readyToShoot = false;
 
-        GameObject arrow = Instantiate(projectile, transform.position, transform.rotation);
+        GameObject arrow = Instantiate(projectile, transform.position, transform.rotation, transform);
 
         float x = Random.Range(-spread, spread);
         float z = Random.Range(-spread, spread);

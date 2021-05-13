@@ -21,6 +21,8 @@ public class AIController : MonoBehaviour
     int damageTime;
     float lastDamageTime;
 
+    MaintainScore scoreScript;
+
     public void TakeDamage(int explosionDamage)
     {
         currentHealth -= explosionDamage;
@@ -29,6 +31,7 @@ public class AIController : MonoBehaviour
 
     private void Die()
     {
+        scoreScript.AddScore(2);
         Destroy(gameObject);
     }
 
@@ -92,6 +95,7 @@ public class AIController : MonoBehaviour
 
         goal = GameObject.Find("Player(Clone)");
 
+        scoreScript = GameObject.Find("Score (Number)").GetComponent<MaintainScore>();
     }
 
     void Update()

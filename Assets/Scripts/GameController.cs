@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -17,13 +18,14 @@ public class GameController : MonoBehaviour
 
     GameObject room;
     List<GameObject> selectedEnemies;
+    int playerSpawnX, playerSpawnZ, destX, destZ;
 
     public Camera minimapCam;
     public GameObject Environment;
+    public GameObject character; 
+    public GameObject teleporter;
 
     public float difficulty=0.1f;
-
-    public GameObject gameAreaDespawnerPrefab;
 
     // Builds Navmesh for AI
     void BuildNavMesh()
@@ -51,6 +53,12 @@ public class GameController : MonoBehaviour
 
     // Assigns enemies and traps to rooms
     void RoomEnemyAssignment() {
+        playerSpawnX = Random.Range(0, gridSize);
+        playerSpawnZ = Random.Range(0, gridSize);
+        destX = Random.Range(0, gridSize);
+        destZ = Random.Range(0, gridSize);
+        Instantiate(teleporter, new Vector3(increment*destX, 1, increment*destZ), Quaternion.identity);
+
         Debug.Log("Assigning Enemies To Room");
         for (int i = 0; i < gridSize; i++)
         {
@@ -77,11 +85,11 @@ public class GameController : MonoBehaviour
                     Debug.Log("Room Controller is Null");
                 }
 
-                if (Random.Range(0f, 1f) < difficulty)
+                if (!(i==playerSpawnX && j==playerSpawnZ) && !(i==destX && j==destZ) && Random.Range(0f, 1f) < difficulty)
                 {
                     roomController.tag = "Trap";
                     roomController.isMine = true;
-                };
+                }
                 room.name = "Room " + i + ", " + j;
 
 
@@ -107,10 +115,8 @@ public class GameController : MonoBehaviour
 
     // Spawns player
     void SpawnPlayer() {
-        Debug.Log("Spawning Player");
-
-        GameObject playerInstance = Instantiate(player, new Vector3(20, 1, 0), Quaternion.identity);
-        playerInstance.GetComponent<PlayerMotor>().minimapCam = minimapCam;
+        Debug.Log("Spawning Player at "+playerSpawnX+","+playerSpawnZ);
+        GameObject playerInstance = Instantiate(player, new Vector3(increment*playerSpawnX, 1, increment*playerSpawnZ), Quaternion.identity, character.transform);
     }
 
     // Create rooms
@@ -125,10 +131,10 @@ public class GameController : MonoBehaviour
                 rooms[i, j].transform.parent = Environment.transform;
 
                 roomControllers[i, j] = rooms[i, j].GetComponent<RoomController>();
-                _startX += increment;
+                _startZ += increment;
             }
-            _startX = 0;
-            _startZ += increment;
+            _startZ = 0;
+            _startX += increment;
         }
     }
 
@@ -145,14 +151,30 @@ public class GameController : MonoBehaviour
         rooms = new GameObject[gridSize, gridSize];
         roomControllers = new RoomController[gridSize, gridSize];
         selectedEnemies = new List<GameObject>();
-        SpawnGameAreaDespawner();
         SpawnRooms();
         Invoke("InitializeEverything", 0.01f);
     }
 
-    private void SpawnGameAreaDespawner()
+    void DestroyEverything()
     {
-        Instantiate(gameAreaDespawnerPrefab, Vector3.zero, Quaternion.identity);
+        foreach (Transform child in Environment.transform) 
+            Destroy(child.gameObject);
+        foreach (Transform child in character.transform)
+            Destroy(child.gameObject);
+    }
+
+    public void RestartGame()
+    {
+        Scene scene = SceneManager.GetActiveScene(); 
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void NextLevel()
+    {
+        DestroyEverything();
+        difficulty+=0.01f;
+        gridSize+=1;
+        BeginGame();
     }
 
     void Start()

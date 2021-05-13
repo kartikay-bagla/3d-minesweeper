@@ -5,8 +5,6 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMotor : MonoBehaviour
 {
-    
-    public Camera minimapCam;
 
     [SerializeField]
     private Camera cam;
@@ -49,8 +47,6 @@ public class PlayerMotor : MonoBehaviour
     void PerformMovement() {
         if (velocity != Vector3.zero) {
             rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
-            if (minimapCam!=null)
-                minimapCam.transform.position += velocity * Time.fixedDeltaTime;
         }
         if (thrusterForce != Vector3.zero) {
             rb.AddForce(thrusterForce * Time.fixedDeltaTime, ForceMode.Acceleration);

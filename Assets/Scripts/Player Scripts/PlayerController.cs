@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerMotor))]
 [RequireComponent(typeof(ConfigurableJoint))]
@@ -90,6 +90,11 @@ public class PlayerController : MonoBehaviour
         motor.ApplyThruster(_thrusterForce);
     }
 
+    void Die()
+    {
+        GameController gameController = GameObject.Find("GameController").GetComponent<GameController>();
+        gameController.RestartGame();
+    }
     
     public void TakeDamage(int damage) {
         currentHealth -= damage;
@@ -110,9 +115,8 @@ public class PlayerController : MonoBehaviour
     {
         Movement();
 
-        if (currentHealth <= 0) {
-            Destroy(gameObject);
-        }
+        if (currentHealth <= 0) 
+            Die();
     }
 
     private void SetJointSettings (float _jointSpring) {

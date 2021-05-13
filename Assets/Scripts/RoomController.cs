@@ -18,10 +18,12 @@ public class RoomController : MonoBehaviour
     List<GameObject> roomEnemies;
     bool activated;
 
+    MaintainScore scoreScript;
     public bool isMine = false;
     public int gridValue = 0;
 
     private bool hasEntered = false;
+    GameObject character;
 
     void OnTriggerEnter(Collider collider) {
         if (!hasEntered && collider.tag == "Player")
@@ -30,7 +32,10 @@ public class RoomController : MonoBehaviour
             if (isMine)
                 TriggerTrap();
             else
+            {
+                scoreScript.AddScore(5);
                 DisplayValueOfRoom();
+            }
         }
     }
 
@@ -110,10 +115,12 @@ public class RoomController : MonoBehaviour
     void Start()
     {
         activated = false;
+        character = GameObject.Find("Character");
         if (chosenSpawnLocations == null)
         {
             CreateSpawnPoints();
         }
+        scoreScript = GameObject.Find("Score (Number)").GetComponent<MaintainScore>();
 
     }
 
@@ -130,7 +137,7 @@ public class RoomController : MonoBehaviour
 
                     for (int i = 0; i < roomEnemies.Count; i++)
                     {
-                        Instantiate(roomEnemies[i], chosenSpawnLocations[i].position, Quaternion.identity);
+                        Instantiate(roomEnemies[i], chosenSpawnLocations[i].position, Quaternion.identity, character.transform);
                     }
 
                     activated = true;

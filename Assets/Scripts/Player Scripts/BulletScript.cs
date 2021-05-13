@@ -25,6 +25,7 @@ public class BulletScript : MonoBehaviour
         if(collider.CompareTag("Character")) {
             // Debug.Log(collider.name);
             collider.GetComponent<AIController>().TakeDamage(bulletDamage);
+            Debug.Log(collider.name);
             Invoke("Die", 0.05f);
         }
         collisions += 1;
