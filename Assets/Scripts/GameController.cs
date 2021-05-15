@@ -51,14 +51,20 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // Assigns enemies and traps to rooms
-    void RoomEnemyAssignment() {
+    void SelectStartEnd()
+    {
         playerSpawnX = Random.Range(0, gridSize);
         playerSpawnZ = Random.Range(0, gridSize);
         destX = Random.Range(0, gridSize);
         destZ = Random.Range(0, gridSize);
-        Instantiate(teleporter, new Vector3(increment*destX, 1, increment*destZ), Quaternion.identity);
+        GameObject winTeleport = Instantiate(teleporter, new Vector3(increment*destX, 1, increment*destZ), Quaternion.identity);
+        winTeleport.transform.rotation = rooms[destX,destZ].transform.rotation;
+        winTeleport.transform.parent = rooms[destX,destZ].transform;
+        winTeleport.name="Teleporter";
+    }
 
+    // Assigns enemies and traps to rooms
+    void RoomEnemyAssignment() {
         Debug.Log("Assigning Enemies To Room");
         for (int i = 0; i < gridSize; i++)
         {
@@ -141,6 +147,7 @@ public class GameController : MonoBehaviour
     // Initializes traps, enemies and player
     void InitializeEverything() {
         BuildNavMesh();
+        SelectStartEnd();
         RoomEnemyAssignment();
         LabelGrid();
         SpawnPlayer();
