@@ -16,10 +16,7 @@ public class PointToGoal : MonoBehaviour
     }
     void Update()
     {
-        if (target == null) {
-            GameObject target = GameObject.Find("Teleporter");
-        }
-
+        GameObject target = GameObject.Find("Teleporter");
         Vector3 targetPosition = target.transform.position;
 
         Vector3 fromPosition = minimapCamera.transform.position;
@@ -27,8 +24,9 @@ public class PointToGoal : MonoBehaviour
         Vector3 dir = (targetPosition - fromPosition).normalized;
         
         float angle = (Mathf.Atan2(dir.z, dir.x) * Mathf.Rad2Deg) % 360;
-        angle += minimapCamera.transform.rotation.eulerAngles.y;
+        angle = (angle + minimapCamera.transform.rotation.eulerAngles.y) % 360;
 
         pointerRectTransform.localEulerAngles = new Vector3(0, 0, angle);
+        pointerRectTransform.anchoredPosition3D = 10*new Vector3(dir.x, dir.z, 0).normalized;
     }
 }
