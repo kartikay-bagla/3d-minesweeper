@@ -25,5 +25,6 @@ public class FollowPlayer : MonoBehaviour
         }
         else
             transform.position = new Vector3(player.transform.position.x, 71, player.transform.position.z);
+            transform.rotation = Quaternion.Euler(90, player.transform.rotation.eulerAngles.y, 0);
     }
 }
