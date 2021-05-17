@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMotor))]
@@ -19,6 +20,14 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]
     private float thrusterForce = 1000f;
+
+    [SerializeField]
+    private float thrusterFuelBurnSpeed = 1f;
+
+    [SerializeField]
+    private float thrusterFuelRegenSpeed = 0.3f;
+
+    private float thrusterFuelAmount = 1f;
 
     [SerializeField]
 	private LayerMask environmentMask;
@@ -75,12 +84,16 @@ public class PlayerController : MonoBehaviour
 
         // Thruster Jump
         Vector3 _thrusterForce = Vector3.zero;
-        if (Input.GetButton("Jump")) {
+        if (Input.GetButton("Jump") & (thrusterFuelAmount > 0.05f)) {
+            thrusterFuelAmount -= thrusterFuelBurnSpeed * Time.deltaTime;
             _thrusterForce = Vector3.up * thrusterForce;
             SetJointSettings(0);
         } else {
+            thrusterFuelAmount += thrusterFuelRegenSpeed * Time.deltaTime;
             SetJointSettings(jointSpring);
         }
+
+        thrusterFuelAmount = Mathf.Clamp(thrusterFuelAmount, 0f, 1f);
 
         if (!groundBelowTrigger) {
             SetJointSettings(0);
@@ -94,6 +107,15 @@ public class PlayerController : MonoBehaviour
     {
         GameController gameController = GameObject.Find("GameController").GetComponent<GameController>();
         gameController.RestartGame();
+    }
+    
+    public float GetFuelAmount() {
+        return thrusterFuelAmount;
+    }
+
+    public float GetHealthAmount()
+    {
+        return (float)currentHealth / (float)maxHealth;
     }
     
     public void TakeDamage(int damage) {

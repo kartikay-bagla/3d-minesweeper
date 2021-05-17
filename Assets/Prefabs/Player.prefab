@@ -96,6 +96,8 @@ MonoBehaviour:
   speed: 5
   lookSensitivity: 20
   thrusterForce: 1000
+  thrusterFuelBurnSpeed: 1
+  thrusterFuelRegenSpeed: 0.3
   environmentMask:
     serializedVersion: 2
     m_Bits: 2048
@@ -325,7 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 589512559312808797, guid: 13d3d9491ae5f0b49a810df9f729d24e, type: 3}
-  shootForce: 20
+  shootForce: 100
   upwardForce: 0
   timeBetweenShooting: 0.1
   spread: 0
