@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileGun : MonoBehaviour
 {
-
+    private const int MaxDistance = 1000;
     public GameObject bullet;
 
     public float shootForce, upwardForce;
@@ -26,6 +26,8 @@ public class ProjectileGun : MonoBehaviour
     public GameObject muzzleFlash;
 
     public bool allowInvoke = true;
+
+    public LayerMask layerMask;
 
 
     public void Awake()
@@ -61,7 +63,7 @@ public class ProjectileGun : MonoBehaviour
 
         Vector3 targetPoint;
 
-        if (Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit, MaxDistance, layerMask))
             targetPoint = hit.point;
         else
             targetPoint = ray.GetPoint(75);

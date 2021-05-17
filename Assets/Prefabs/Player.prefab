@@ -340,6 +340,9 @@ MonoBehaviour:
   attackPoint: {fileID: 712372089649530393}
   muzzleFlash: {fileID: 0}
   allowInvoke: 1
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 3072
 --- !u!1 &201328291473371393
 GameObject:
   m_ObjectHideFlags: 0
