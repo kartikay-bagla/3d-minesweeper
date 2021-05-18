@@ -126,6 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 0}
-  bulletDamage: 10
+  bulletDamage: 50
   maxLifetime: 100
   maxCollisions: 1

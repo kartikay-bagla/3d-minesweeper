@@ -23,6 +23,11 @@ public class AIController : MonoBehaviour
 
     MaintainScore scoreScript;
 
+    public float GetHealthAmount() {
+        Debug.Log(currentHealth);
+        return (float) currentHealth / (float) maxHealth;
+    }
+
     public void TakeDamage(int explosionDamage)
     {
         currentHealth -= explosionDamage;

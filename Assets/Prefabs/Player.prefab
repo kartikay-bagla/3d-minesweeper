@@ -329,15 +329,15 @@ MonoBehaviour:
   bullet: {fileID: 589512559312808797, guid: 13d3d9491ae5f0b49a810df9f729d24e, type: 3}
   shootForce: 100
   upwardForce: 0
-  timeBetweenShooting: 0.1
-  spread: 0
+  timeBetweenShooting: 0.2
+  spread: 1
   reloadTime: 1.5
-  timeBetweenShots: 0
+  timeBetweenShots: 0.1
   magazineSize: 100
   bulletsPerTap: 1
-  allowButtonHold: 1
+  allowButtonHold: 0
   player: {fileID: 201328290679357824}
-  recoilForce: 0
+  recoilForce: 1
   fpscam: {fileID: 201328291515362632}
   attackPoint: {fileID: 712372089649530393}
   muzzleFlash: {fileID: 0}

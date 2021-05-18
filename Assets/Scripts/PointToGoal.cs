@@ -16,7 +16,7 @@ public class PointToGoal : MonoBehaviour
     }
     void Update()
     {
-        GameObject target = GameObject.Find("Teleporter");
+        target = GameObject.Find("Teleporter");
         Vector3 targetPosition = target.transform.position;
 
         Vector3 fromPosition = minimapCamera.transform.position;
