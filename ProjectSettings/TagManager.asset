@@ -9,6 +9,8 @@ TagManager:
   - Character
   - Enemy
   - Bullet
+  - projectile
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -23,7 +25,6 @@ TagManager:
   - Enemies
   - Environment
   - Sensors
-  - 
   - 
   - 
   - 

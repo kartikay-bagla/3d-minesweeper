@@ -58,7 +58,14 @@ public class ProjectileGun : MonoBehaviour
     {
         readyToShoot = false;
 
-        Ray ray = fpscam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Ray ray;
+
+        if (fpscam != null) {
+            ray = fpscam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        } else {
+            ray = new Ray(attackPoint.position, attackPoint.forward);
+        }
+
         RaycastHit hit;
 
         Vector3 targetPoint;
@@ -78,7 +85,7 @@ public class ProjectileGun : MonoBehaviour
         GameObject currentBullet = Instantiate(bullet, attackPoint.position, Quaternion.identity);
         currentBullet.transform.forward = dirWithSpread.normalized;
         currentBullet.GetComponent<Rigidbody>().AddForce(dirWithSpread.normalized * shootForce, ForceMode.Impulse);
-        currentBullet.GetComponent<Rigidbody>().AddForce(fpscam.transform.up * upwardForce, ForceMode.Impulse);
+        // currentBullet.GetComponent<Rigidbody>().AddForce(fpscam.transform.up * upwardForce, ForceMode.Impulse);
 
 
         if (muzzleFlash != null) {
